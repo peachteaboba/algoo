@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <!-- css -->
+    <link rel='stylesheet' href='static/css/reset.css'>
+    <link rel='stylesheet' href='static/css/index.css'>
+    <link rel='stylesheet' href='static/css/dashboard.css'>
+
+    <!-- fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Amiko" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700" rel="stylesheet">
+
+    <!-- javascript -->
+    <script type="text/javascript" src="angular/angular.min.js"></script>
+    <script type="text/javascript" src="angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="angular-cookies/angular-cookies.min.js"></script>
+    <script>
+        // Create Angular App
+        var app = angular.module("myApp", ['ngRoute', 'ngCookies']);
+
+        // Configure Angular Routes
+        app.config(function($routeProvider) {
+            $routeProvider
+                .when('/',{
+                    templateUrl: 'static/partials/loginReg.html',
+                    controller:'loginController'
+                })
+                .when('/dashboard', {
+                    templateUrl: 'static/partials/dashboard.html',
+                    controller: 'dashboardController'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                })
+        });
+    </script>
+    <script type="text/javascript" src="static/js/factories.js"></script>
+    <script type="text/javascript" src="static/js/controllers.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+    <div ng-view=""></div>
+
+</body>
+</html>

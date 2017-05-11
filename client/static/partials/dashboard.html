@@ -1,0 +1,204 @@
+<!-- styles for this page are on dashboard.css -->
+
+
+<div class="main-wrapper">
+
+  <!-- tracks -->
+  <div class="left-wrapper">
+    <div class="header-wrapper">
+      <h1 ng-bind="leftTitle"></h1>
+      <div class="add-btn add-action" ng-click="addTrack()" ng-mouseover="leftTitle = 'add track'" ng-mouseleave="leftTitle = 'tracks'">
+        <img src="static/img/add-w.png" alt="">
+      </div>
+      <!-- This won't show up unless a track is selected -->
+      <div class="add-btn edit-action" ng-click="editTrackk()" o ng-show="selectedTrack._id">
+        <img src="static/img/edit.png" alt="">
+      </div>
+    </div>
+
+
+
+
+  <div class="tracks-list-wrapper">
+
+    <div class="tracks-top-legend">
+      <p class="ttl-chapter">chapter</p>
+    </div>
+
+    <div class="track-wrapper" ng-repeat="track in tracks" ng-click="selectTrack(track, $index)" ng-class="{'selected-track': selectedTrack._id == track._id}">
+      <div class="track-chapter-wrapper">
+        <p ng-bind="track.chapter"></p>
+      </div>
+
+      <div class="track-content-wrapper" ng-class="{'selected-track': selectedTrack._id == track._id}">
+        <h1 class="track-title" ng-bind="track.title"></h1>
+        <h2 class="track-description" ng-bind="track.description"></h2>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  </div>
+
+  <!-- algos -->
+  <div class="right-wrapper">
+    <div class="header-wrapper">
+      <h1 ng-bind="rightTitle"></h1>
+
+      <!-- This won't show up unless a track is selected -->
+      <div class="add-btn add-action" ng-click="addAlgo()" ng-mouseover="rightTitle = 'add algo'" ng-mouseleave="rightTitle = 'algos'" ng-show="selectedTrack._id">
+        <img src="static/img/add-w.png" alt="">
+      </div>
+
+      <!-- ALGOS LIST -->
+      <div class="algos-list-wrapper">
+        <div class="algos-top-legend">
+          <p class="atl-order">order</p>
+        </div>
+        <div class="algo-wrapper" ng-repeat="algo in algosToShow" ng-click="selectAlgo(algo)" ng-class="{'selected-algo': selectedAlgo._id == algo._id}">
+          <div class="algo-order-wrapper">
+            <p ng-bind="algo.order"></p>
+            <div class="diff-wrapper">
+              <div class="diff-dot" ng-class="{'dot-green': algo.difficulty == 1, 'dot-orange': algo.difficulty == 2, 'dot-red': algo.difficulty == 3}"></div>
+              <div class="diff-dot" ng-class="{'dot-orange': algo.difficulty == 2, 'dot-red': algo.difficulty == 3}"></div>
+              <div class="diff-dot" ng-class="{'dot-red': algo.difficulty == 3}"></div>
+            </div>
+          </div>
+          <div class="algo-content-wrapper" ng-class="{'selected-algo': selectedAlgo._id == algo._id}">
+            <h1 class="algo-title-list" ng-bind="algo.title"></h1>
+            <h2 class="algo-description-list" ng-bind="algo.description"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="add-wrapper" ng-if="showAddBG">
+    <div class="cancel-btn" ng-click="cancelAdd()">
+      <img class="cancel-img-b" src="static/img/cancel.png" alt="">
+      <img class="cancel-img-w" src="static/img/cancel-w.png" alt="">
+    </div>
+
+    <!-- ADDING A NEW TRACK -->
+    <!-- ADDING A NEW TRACK -->
+    <div ng-hide="showAddAlgo || editAlgo">
+      <h1 class="add-title" ng-hide="editTrack">add track</h1>
+      <h1 class="add-title" ng-show="editTrack">edit track</h1>
+
+      <form name="addTrackForm" novalidate>
+
+
+        <div class="add-input-wrapper-title">
+          <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addTrackForm.title.$dirty || focusT}">title</h1>
+
+
+          <input class="title-input" ng-focus="focusT=true; blurT=false;" ng-blur="blurT=true; focusT=false;" ng-class="{ 'no-error' : addTrackForm.title.$valid }" type="text" name="title" ng-model="newTrack.title" ng-minlength="3" required autofocus>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="add-input-wrapper-description">
+          <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addTrackForm.description.$dirty || focusD}">description</h1>
+          <input ng-focus="focusD=true; blurD=false;" ng-blur="blurD=true; focusD=false;" class="title-input desc-input" ng-class="{ 'no-error' : addTrackForm.description.$valid }" type="text" name="description" ng-model="newTrack.description" ng-minlength="3" required>
+        </div>
+
+        <div class="add-input-wrapper-place">
+          <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addTrackForm.chapter.$dirty || focusP}">chapter</h1>
+          <input ng-focus="focusP=true; blurP=false;" ng-blur="blurP=true; focusP=false;" class="title-input place-input" ng-class="{ 'no-error' : addTrackForm.chapter.$valid }" type="number" name="chapter" ng-model="newTrack.chapter" ng-minlength="1" required>
+        </div>
+
+        <button class="add-track-btn" ng-class="{'add-track-btn-good' : addTrackForm.$valid}" ng-disabled="addTrackForm.$invalid" ng-click="addTrackSubmit()">Submit</button>
+      </form>
+
+      <div class="delete-btn" ng-show="editTrack" ng-click="deleteTrack()">
+        <img class="delete-img-w" src="static/img/trash.png" alt="">
+        <img class="delete-img-r" src="static/img/trash-r.png" alt="">
+      </div>
+    </div>
+    <!-- ADDING A NEW TRACK -->
+    <!-- ADDING A NEW TRACK -->
+
+
+
+
+
+
+
+    <!-- ADDING/EDITING AN ALGO -->
+    <!-- ADDING/EDITING AN ALGO -->
+    <div ng-show="showAddAlgo || editAlgo">
+      <h1 class="add-title" ng-hide="editAlgo">add algo</h1>
+      <h1 class="add-title" ng-show="editAlgo">edit algo</h1>
+
+      <form name="addAlgoForm" novalidate>
+
+        <!-- Title -->
+        <div class="add-input-wrapper-title add-input-wrapper-title-algo">
+          <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addAlgoForm.title.$dirty || focusT || newAlgo.title.length > 0}">title</h1>
+          <input class="title-input" ng-focus="focusT=true; blurT=false;" ng-blur="blurT=true; focusT=false;" ng-class="{ 'no-error' : addAlgoForm.title.$valid }" type="text" name="title" ng-model="newAlgo.title" ng-minlength="3" required autofocus>
+        </div>
+
+        <!-- Description -->
+        <div class="add-input-wrapper-description add-input-wrapper-description-algo">
+          <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addAlgoForm.description.$dirty || focusD || newAlgo.description.length > 0}">description</h1>
+          <textarea ng-focus="focusD=true; blurD=false;" ng-blur="blurD=true; focusD=false;" class="title-input desc-input add-algo-desc" ng-class="{ 'no-error' : addAlgoForm.description.$valid }" type="text" name="description" ng-model="newAlgo.description" ng-minlength="3" required></textarea>
+        </div>
+
+        <!-- Hint -->
+        <div class="add-input-wrapper-description add-input-wrapper-description-hint">
+          <h1 class="title-placeholder title-placeholder-hint" ng-class="{'title-placeholder-up-h': addAlgoForm.hint.$dirty || focusH || newAlgo.hint.length > 0}">hint</h1>
+          <input ng-focus="focusH=true; blurH=false;" ng-blur="blurH=true; focusH=false;" class="title-input desc-input add-algo-hint" ng-class="{ 'no-error' : addAlgoForm.hint.$valid }" type="text" name="hint" ng-model="newAlgo.hint" ng-minlength="3" required>
+        </div>
+
+        <div class="order-difficulty-wrapper">
+          <!-- Order -->
+          <div class="add-input-wrapper-place add-input-wrapper-order-algo">
+            <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addAlgoForm.order.$dirty || focusO || newAlgo.order}">order</h1>
+            <input ng-focus="focusO=true; blurO=false;" ng-blur="blurO=true; focusO=false;" class="title-input place-input" ng-class="{ 'no-error' : addAlgoForm.order.$valid }" type="number" name="order" ng-model="newAlgo.order" ng-minlength="1" min="1" required>
+            <p>{{algosToShow.length + 1}}</p>
+          </div>
+
+          <!-- Difficulty -->
+          <div class="add-input-wrapper-place add-input-wrapper-diff-algo">
+            <h1 class="title-placeholder" ng-class="{'title-placeholder-up': addAlgoForm.difficulty.$dirty || focusDiff || newAlgo.difficulty}">difficulty</h1>
+            <input ng-focus="focusDiff=true; blurDiff=false;" ng-blur="blurDiff=true; focusDiff=false;" class="title-input diff-input" ng-class="{ 'no-error' : addAlgoForm.difficulty.$valid }" type="number" name="difficulty" ng-model="newAlgo.difficulty" ng-minlength="1" min="1" max="3" required>
+            <p>1 - 3</p>
+          </div>
+        </div>
+
+        <button class="add-track-btn" ng-class="{'add-track-btn-good' : addAlgoForm.$valid}" ng-disabled="addAlgoForm.$invalid" ng-click="addAlgoSubmit()">Submit</button>
+      </form>
+
+
+
+
+
+      <div class="delete-btn" ng-show="editTrack || editAlgo" ng-click="deleteTrack()">
+        <img class="delete-img-w" src="static/img/trash.png" alt="">
+        <img class="delete-img-r" src="static/img/trash-r.png" alt="">
+      </div>
+      <div class="add-bg-bottom-padding"></div>
+    </div>
+    <!-- ADDING/EDITING AN ALGO -->
+    <!-- ADDING/EDITING AN ALGO -->
+
+
+
+
+
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,102 @@
+<style media="screen">
+  body{
+    /*background-color: #19191f*/
+  }
+
+  .login-wrapper{
+    width: 400px;
+    height: 400px;
+    display: inline-block;
+    position: absolute;
+    top: 100px;
+    left: calc(50% - 200px);
+    text-align: center;
+  }
+
+  input{
+    display: block;
+    width: 100%;
+    height: 70px;
+    letter-spacing: 3px;
+    border: 6px solid #211f27;
+    text-align: center;
+
+    -moz-transition: border 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -webkit-transition: border 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -o-transition: border 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    transition: border 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+  }
+
+  button{
+    display: block;
+    width: 100%;
+    letter-spacing: 3px;
+    height: 70px;
+    background-color: #211f27;
+    color: white;
+
+    -moz-transition: background-color 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -webkit-transition: background-color 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -o-transition: background-color 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    transition: background-color 0.5s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+  }
+
+
+  .hovered{
+    background-color: black !important;
+    /*letter-spacing: 3px;*/
+  }
+  .hoveredI{
+    border: 6px solid black !important;
+  }
+
+
+
+  .red{
+    background-color: #F25555 !important;
+    -moz-transition: background-color 0.0s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -webkit-transition: background-color 0.0s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -o-transition: background-color 0.50, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    transition: background-color 0.0s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+  }
+  .redI{
+    border: 6px solid #F25555 !important;
+    -moz-transition: background-color 0.0s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -webkit-transition: background-color 0.0s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    -o-transition: background-color 0.50, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+    transition: background-color 0.0s, letter-spacing 0.5s, -moz-transform ease-in-out 0.5s;
+  }
+
+</style>
+
+<div class="error-wrapper">
+  <p>{{error}}</p>
+</div>
+
+
+<div class="login-wrapper" ng-keypress="myFunct($event)">
+
+  <input id="pass" type="password" name="" value="" ng-model="login.password" ng-class="{'hoveredI': hoverEdit, 'redI': red}" autofocus>
+  <button ng-click="loginAdmin()" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false" ng-class="{'hovered': hoverEdit, 'red': red}">{{buttonText}}</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end -->

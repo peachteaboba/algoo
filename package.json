@@ -1,0 +1,14 @@
+{
+  "name": "Algo_Backend",
+  "version": "0.0.1",
+  "description": "Backend API for Algo App",
+  "main": "server.js",
+  "author": "afeng",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "latest",
+    "colors": "^1.1.2",
+    "express": "latest",
+    "mongoose": "latest"
+  }
+}
